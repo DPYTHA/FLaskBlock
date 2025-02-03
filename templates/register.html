@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+    <link rel="website icon" href="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
 
     <title>Register</title>
     <style>
@@ -13,9 +13,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #f9f9f9;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -33,6 +35,7 @@
             transition: all 0.3s ease-in-out;
             width: 100%;
             max-width: 400px;
+            box-sizing: border-box;
         }
 
         form:hover {
@@ -59,6 +62,7 @@
             font-size: 16px;
             outline: none;
             transition: border 0.3s ease;
+            box-sizing: border-box;
         }
 
         input[type="text"]:focus, 
@@ -79,38 +83,57 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        button a{
+
+        button a {
             color: #f3f3f3;
+            text-decoration: none;
         }
 
         button:hover {
             background-color: orange;
         }
-        .Btn{
+
+        .Btn {
             margin-right: 100px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
-   
     <form method="POST">
         <h1>Register</h1>
         <label for="first_name">First Name:</label>
         <input type="text" id="first_name" name="first_name" placeholder="votre prenom" required>
-        
+
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" placeholder="votre Nom" required>
-        
+
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone"  placeholder="(+225) 00000000">
-        
+        <input type="text" id="phone" name="phone" placeholder="(+225) 00000000">
+
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
-        
+
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        
-        <button type="submit">Register</button> <br><br><button ><a href="{{ url_for('login') }}">Back</a></button>
+
+        <button type="submit">Register</button><br><br>
+        <button><a href="{{ url_for('login') }}">Back</a></button>
     </form>
 </body>
 </html>

@@ -12,17 +12,19 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            font-size: 16px;
         }
+
         body {
-    user-select: none; /* Empêche la sélection de texte */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
 
         /* Navbar */
         .navbar {
-            background-color: #000; /* Black background */
+            background-color: #000;
             color: #fff;
             padding: 1rem;
             display: flex;
@@ -38,7 +40,7 @@
         }
 
         .navbar a:hover {
-            color: #f0a500; /* Orange on hover */
+            color: #f0a500;
         }
 
         /* Dashboard layout */
@@ -56,7 +58,8 @@
             border-radius: 8px;
             padding: 1rem;
         }
-        .sidebar h1{
+
+        .sidebar h1 {
             font-size: 20px;
         }
 
@@ -76,7 +79,7 @@
         }
 
         .sidebar ul li a:hover {
-            color: #f0a500; /* Orange on hover */
+            color: #f0a500;
         }
 
         /* Main content */
@@ -112,60 +115,68 @@
             font-size: 0.9rem;
             color: #666;
         }
-        .logo{
-        display: flex;
-        background-color: rgba(250, 246, 246, 0.873);
-        align-items: center;
-    }
-    .logo h1{
-        font-size: 22px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: rgb(47, 190, 190);
-    }
-    .header{
-        display: flex;
-        align-items: center;
-        gap: 600px;
 
-    }
-    .NamePage h1{
-        text-align: end;
-        font-size: 50px;
-    }
-    .France{
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-    img{
-        border-radius: 10px;
-    }
-    .Hongrie{
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .FranceDescription span{
-        color: rgb(20, 13, 5);
-        
-    }
-    .FranceDescription li{
-        list-style: none;
-    }
-    .CommentPostuler a:hover{
-        color: #a29069;
-    }
-    #description {
-        display: none;
-        background:rgb(188, 188, 157);
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-   
-    </style>
-     <style>
+        .logo {
+            display: flex;
+            background-color: rgba(250, 246, 246, 0.873);
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(47, 190, 190);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 600px;
+        }
+
+        .NamePage h1 {
+            text-align: end;
+            font-size: 50px;
+        }
+
+        .France {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        img {
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .Hongrie {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .FranceDescription span {
+            color: rgb(20, 13, 5);
+        }
+
+        .FranceDescription li {
+            list-style: none;
+        }
+
+        .CommentPostuler a:hover {
+            color: #a29069;
+        }
+
+        #description {
+            display: none;
+            background: rgb(188, 188, 157);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
         .bourse {
             display: flex;
             align-items: center;
@@ -183,10 +194,12 @@
         .description {
             flex-grow: 1;
         }
-        .description li{
+
+        .description li {
             color: #251c09;
         }
-        .description li i{
+
+        .description li i {
             color: red;
         }
 
@@ -202,11 +215,102 @@
             transform: translateX(-50%);
             z-index: 1000;
         }
-        .Fulbright img{
+
+        .Fulbright img {
             width: 300px;
         }
+
+        .testToefel img {
+            width: 300px;
+        }
+
+        .sidebar p {
+            font-size: large;
+            font-size: 25px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .header {
+                gap: 300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                gap: 200px;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: 2;
+            }
+
+            .main-content {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                gap: 100px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar a {
+                margin: 0.5rem 0;
+            }
+
+            .bourse img {
+                width: 100%;
+            }
+
+            .description-box {
+                width: 90%;
+                left: 5%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                gap: 50px;
+            }
+
+            .NamePage h1 {
+                font-size: 30px;
+            }
+
+            .sidebar h1 {
+                font-size: 18px;
+            }
+
+            .sidebar p {
+                font-size: 20px;
+            }
+
+            .bourse {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .bourse img {
+                width: 100%;
+            }
+
+            .description-box {
+                width: 100%;
+                left: 0;
+            }
+        }
     </style>
-     <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".toggleDescription").forEach(button => {
                 button.addEventListener("click", function (event) {
@@ -226,30 +330,6 @@
             });
         });
     </script>
-    <script>
-        document.addEventListener('keyup', function (e) {
-            if (e.key === "PrintScreen") {
-               
-                navigator.clipboard.writeText(""); // Efface le presse-papiers
-            }
-        });
-    
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && e.key === "p") {
-                e.preventDefault();
-              
-            }
-        });
-    </script>
-    <style>
-        .testToefel img{
-            width: 300px;
-        }
-        .sidebar P{
-            font-size: large;
-            font-size: 25px;
-        }
-    </style>
 </head>
 <body>
     <div class="header">

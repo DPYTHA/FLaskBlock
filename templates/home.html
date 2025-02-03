@@ -21,51 +21,169 @@
    
 </body>
 <style>
-    .registerLogin a{
-        font-size: 15px;
+    /* Global styles */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        font-size: 16px;
     }
-     button:hover{
-        background-color: orange;
-        color: white;
-     }
-    button{
-        width: 280px;
+
+    /* Header */
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background-color: rgba(250, 246, 246, 0.873);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo img {
+        width: 150px; /* Taille relative */
+        height: auto;
+    }
+
+    .logo h1 {
+        font-size: 1.375rem; /* Utilisation de rem pour la taille de police */
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(47, 190, 190);
+        margin-left: 1rem;
+    }
+
+    /* Bienvenu section */
+    .bienvenu {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .bienvenu h1 {
+        font-size: 2rem; /* Utilisation de rem pour la taille de police */
+    }
+
+    .bienvenu span {
+        color: orange;
+    }
+
+    /* Register/Login section */
+    .registerLogin {
+        border: solid 2px rgb(150, 119, 66);
+        width: 80%; /* Largeur relative */
+        max-width: 700px; /* Largeur maximale */
+        margin: 2rem auto; /* Centrer horizontalement */
+        padding: 2rem;
+        background-color: rgb(241, 241, 241);
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .registerLogin button {
+        width: 100%; /* Largeur relative */
+        max-width: 280px; /* Largeur maximale */
         height: 80px;
         cursor: pointer;
         background-color: rgb(140, 181, 181);
-        margin-top: 120px;
+        margin-top: 1rem; /* Espacement relatif */
         border-radius: 10px;
+        font-size: 1rem; /* Utilisation de rem pour la taille de police */
+        transition: background-color 0.3s, color 0.3s;
     }
-    .registerLogin span{
-        color: rgb(136, 96, 21);
+
+    .registerLogin button:hover {
+        background-color: orange;
+        color: white;
     }
-    .registerLogin{
-        border: solid 2px;
-        border-color: rgb(150, 119, 66);
-        margin-left: 380px;
-        width: 700px;
-        height: 300px;
-        background-color: rgb(241, 241, 241);
-        text-align: center;
-        align-items: center;
-        border-radius: 10px;
+
+    .registerLogin a {
+        text-decoration: none;
+        color: inherit;
     }
-     .bienvenu span{
-        color: orange;
-     }
-    .bienvenu{
-        text-align: center;
-        align-items: center;
+
+    /* Media Queries */
+    @media (max-width: 1200px) {
+        .logo img {
+            width: 120px; /* Réduire la taille du logo pour les écrans moyens */
+        }
+
+        .logo h1 {
+            font-size: 1.25rem; /* Réduire la taille de la police pour les écrans moyens */
+        }
+
+        .bienvenu h1 {
+            font-size: 1.75rem; /* Réduire la taille de la police pour les écrans moyens */
+        }
     }
-    .logo{
-        display: flex;
-        background-color: rgba(250, 246, 246, 0.873);
-        align-items: center;
+
+    @media (max-width: 992px) {
+        .logo img {
+            width: 100px; /* Réduire la taille du logo pour les tablettes */
+        }
+
+        .logo h1 {
+            font-size: 1.125rem; /* Réduire la taille de la police pour les tablettes */
+        }
+
+        .bienvenu h1 {
+            font-size: 1.5rem; /* Réduire la taille de la police pour les tablettes */
+        }
+
+        .registerLogin {
+            width: 90%; /* Augmenter la largeur relative pour les tablettes */
+        }
     }
-    .logo h1{
-        font-size: 22px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: rgb(47, 190, 190);
+
+    @media (max-width: 768px) {
+        .logo {
+            flex-direction: column; /* Empiler le logo et le texte */
+            text-align: center;
+        }
+
+        .logo h1 {
+            margin-left: 0; /* Supprimer la marge gauche */
+            margin-top: 0.5rem; /* Ajouter une marge en haut */
+        }
+
+        .bienvenu h1 {
+            font-size: 1.25rem; /* Réduire la taille de la police pour les petits écrans */
+        }
+
+        .registerLogin {
+            width: 95%; /* Augmenter la largeur relative pour les petits écrans */
+            padding: 1rem; /* Réduire le padding */
+        }
+
+        .registerLogin button {
+            height: 60px; /* Réduire la hauteur des boutons */
+            font-size: 0.875rem; /* Réduire la taille de la police des boutons */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .logo img {
+            width: 80px; /* Réduire la taille du logo pour les très petits écrans */
+        }
+
+        .logo h1 {
+            font-size: 1rem; /* Réduire la taille de la police pour les très petits écrans */
+        }
+
+        .bienvenu h1 {
+            font-size: 1rem; /* Réduire la taille de la police pour les très petits écrans */
+        }
+
+        .registerLogin {
+            width: 100%; /* Utiliser toute la largeur disponible */
+            border-radius: 0; /* Supprimer les bordures arrondies */
+        }
+
+        .registerLogin button {
+            height: 50px; /* Réduire la hauteur des boutons */
+            font-size: 0.75rem; /* Réduire la taille de la police des boutons */
+        }
     }
 </style>
 </html>

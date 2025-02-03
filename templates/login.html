@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
-
+    <link rel="website icon" href="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
     <title>Login</title>
     <style>
         /* Style général */
@@ -13,26 +12,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #f3f3f3;
+            padding: 1rem; /* Ajouter un padding pour les petits écrans */
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem; /* Utilisation de rem pour la taille de police */
             color: #333;
+            font-size: 1.75rem; /* Utilisation de rem pour la taille de police */
         }
 
         /* Conteneur du formulaire */
         form {
             background-color: #fff;
-            padding: 30px;
+            padding: 1.875rem; /* Utilisation de rem pour la taille de police */
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease-in-out;
             width: 100%;
-            max-width: 400px;
+            max-width: 25rem; /* Utilisation de rem pour la taille de police */
         }
 
         form:hover {
@@ -43,19 +44,20 @@
         /* Champs de formulaire */
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 0.3125rem; /* Utilisation de rem pour la taille de police */
             font-weight: bold;
             color: #555;
+            font-size: 1rem; /* Utilisation de rem pour la taille de police */
         }
 
         input[type="email"], 
         input[type="password"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 0.625rem; /* Utilisation de rem pour la taille de police */
+            margin-bottom: 0.9375rem; /* Utilisation de rem pour la taille de police */
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 1rem; /* Utilisation de rem pour la taille de police */
             outline: none;
             transition: border 0.3s ease;
         }
@@ -68,49 +70,119 @@
         /* Bouton Login */
         button {
             width: 100%;
-            padding: 10px;
+            padding: 0.625rem; /* Utilisation de rem pour la taille de police */
             background-color: black;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 1rem; /* Utilisation de rem pour la taille de police */
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        button a{
+
+        button a {
             color: #f3f3f3;
+            text-decoration: none;
         }
 
         button:hover {
             background-color: orange;
         }
-        .registerLogin i{
+
+        .registerLogin i {
             color: red;
-            font-size: 13px;
+            font-size: 0.8125rem; /* Utilisation de rem pour la taille de police */
         }
-        .registerLogin p{
-            font-size: 13px;
+
+        .registerLogin p {
+            font-size: 0.8125rem; /* Utilisation de rem pour la taille de police */
+            margin-bottom: 0.9375rem; /* Utilisation de rem pour la taille de police */
+        }
+
+        .registerLogin h3 {
+            font-size: 1.125rem; /* Utilisation de rem pour la taille de police */
+            margin-bottom: 0.9375rem; /* Utilisation de rem pour la taille de police */
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 1.5rem; /* Réduire la taille de la police pour les écrans moyens */
+            }
+
+            form {
+                max-width: 22.5rem; /* Réduire la largeur maximale pour les écrans moyens */
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 1.375rem; /* Réduire la taille de la police pour les tablettes */
+            }
+
+            form {
+                max-width: 20rem; /* Réduire la largeur maximale pour les tablettes */
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.25rem; /* Réduire la taille de la police pour les petits écrans */
+            }
+
+            form {
+                max-width: 18.75rem; /* Réduire la largeur maximale pour les petits écrans */
+                padding: 1.25rem; /* Réduire le padding pour les petits écrans */
+            }
+
+            .registerLogin p {
+                font-size: 0.75rem; /* Réduire la taille de la police pour les petits écrans */
+            }
+
+            .registerLogin h3 {
+                font-size: 1rem; /* Réduire la taille de la police pour les petits écrans */
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.125rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
+
+            form {
+                max-width: 100%; /* Utiliser toute la largeur disponible */
+                border-radius: 0; /* Supprimer les bordures arrondies */
+                padding: 1rem; /* Réduire le padding pour les très petits écrans */
+            }
+
+            .registerLogin p {
+                font-size: 0.6875rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
+
+            .registerLogin h3 {
+                font-size: 0.875rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
         }
     </style>
 </head>
 <body>
     <form method="POST">
         <h1>Login</h1>
-       
         <div class="registerLogin"> 
-          <p><span>Felicitation</span>!! Vous venez de vous enregistrer a votre compte premium.
-          Avant de vous connecter et beneficier de nos offres , veuillez solder votre 
-      abonnement:<br><h3>(5000 FCFA ou 10$/Mois)</h3></p>
-      <p>Contactez via Whatssap : +7 9879040719  <br> Email : pythamoua@gmail.com <br><BR>
-      <i>NB: VOTRE COMPTE SERA ACTIF SEULEMENT APRES RECEPTION DE VOTRE ABONNEMENT</i></p>.</div>
+            <p><span>Felicitation</span>!! Vous venez de vous enregistrer a votre compte premium.
+            Avant de vous connecter et beneficier de nos offres , veuillez solder votre 
+            abonnement:<br><h3>(5000 FCFA ou 10$/Mois)</h3></p>
+            <p>Contactez via Whatssap : +7 9879040719  <br> Email : pythamoua@gmail.com <br><br>
+            <i>NB: VOTRE COMPTE SERA ACTIF SEULEMENT APRES RECEPTION DE VOTRE ABONNEMENT</i></p>
+        </div>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
         
-        <button type="submit">Login</button><br><br><button ><a href="{{ url_for('register') }}">Back</a></button>
+        <button type="submit">Login</button><br><br>
+        <button><a href="{{ url_for('register') }}">Back</a></button>
     </form>
-    
 </body>
 </html>

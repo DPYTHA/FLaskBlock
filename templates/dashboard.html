@@ -10,16 +10,18 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            font-size: 16px;
         }
 
         /* Navbar */
         .navbar {
-            background-color: #000; /* Black background */
+            background-color: #000;
             color: #fff;
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap; /* Permettre le retour à la ligne sur les petits écrans */
         }
 
         .navbar a {
@@ -30,7 +32,7 @@
         }
 
         .navbar a:hover {
-            color: #f0a500; /* Orange on hover */
+            color: #f0a500;
         }
 
         /* Dashboard layout */
@@ -48,8 +50,9 @@
             border-radius: 8px;
             padding: 1rem;
         }
-        .sidebar h1{
-            font-size: 20px;
+
+        .sidebar h1 {
+            font-size: 1.25rem; /* Utilisation de rem pour la taille de police */
         }
 
         .sidebar ul {
@@ -68,41 +71,45 @@
         }
 
         .sidebar ul li a:hover {
-            color: #f0a500; /* Orange on hover */
+            color: #f0a500;
         }
 
-        
-        .logo{
-        display: flex;
-        background-color: rgba(250, 246, 246, 0.873);
-        align-items: center;
-    }
-    .logo h1{
-        font-size: 22px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: rgb(47, 190, 190);
-    }
-    .header{
-        display: flex;
-        align-items: center;
-        gap: 600px;
+        .logo {
+            display: flex;
+            background-color: rgba(250, 246, 246, 0.873);
+            align-items: center;
+        }
 
-    }
-    .NamePage h1{
-        text-align: end;
-        font-size: 50px;
-    }
-    .deweb img{
-        width: 300px;
-    }
+        .logo h1 {
+            font-size: 1.375rem; /* Utilisation de rem pour la taille de police */
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(47, 190, 190);
+        }
 
-       </style>
-    
-    <style>
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            flex-wrap: wrap; /* Permettre le retour à la ligne sur les petits écrans */
+        }
+
+        .NamePage h1 {
+            text-align: end;
+            font-size: 2.5rem; /* Utilisation de rem pour la taille de police */
+        }
+
+        .deweb img {
+            max-width: 100%; /* Rendre l'image responsive */
+            height: auto;
+        }
+
+        /* Accordion styles */
         .container {
-            width: 1000px;
+            width: 90%; /* Largeur relative */
             margin: auto;
         }
+
         .accordion {
             background-color: #f1f1f1;
             color: black;
@@ -112,21 +119,96 @@
             text-align: left;
             border: none;
             outline: none;
-            font-size: 18px;
+            font-size: 1.125rem; /* Utilisation de rem pour la taille de police */
             transition: 0.4s;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .active, .accordion:hover {
             background-color: #d3d3d3;
         }
+
         .panel {
             padding: 0 18px;
             display: none;
             background-color: white;
             overflow: hidden;
             border-left: 3px solid #d3d3d3;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .header {
+                gap: 300px; /* Réduire l'espacement pour les écrans moyens */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                gap: 200px; /* Réduire encore l'espacement pour les tablettes */
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr; /* Passer à une seule colonne pour les tablettes */
+            }
+
+            .sidebar {
+                order: 2; /* Déplacer la sidebar en bas sur les petits écrans */
+            }
+
+            .main-content {
+                order: 1; /* Déplacer le contenu principal en haut */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                gap: 100px; /* Réduire l'espacement pour les petits écrans */
+            }
+
+            .navbar {
+                flex-direction: column; /* Empiler les éléments de la navbar */
+                align-items: flex-start;
+            }
+
+            .navbar a {
+                margin: 0.5rem 0; /* Réduire l'espacement entre les liens */
+            }
+
+            .NamePage h1 {
+                font-size: 2rem; /* Réduire la taille de la police pour les petits écrans */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                gap: 50px; /* Réduire encore l'espacement pour les très petits écrans */
+            }
+
+            .NamePage h1 {
+                font-size: 1.5rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
+
+            .sidebar h1 {
+                font-size: 1rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
+
+            .sidebar p {
+                font-size: 1.25rem; /* Réduire la taille de la police pour les très petits écrans */
+            }
         }
     </style>
 
