@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #000; /* Black background */
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        /* Dashboard layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sidebar h1{
+            font-size: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000;
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        
+        .logo{
+        display: flex;
+        background-color: rgba(250, 246, 246, 0.873);
+        align-items: center;
+    }
+    .logo h1{
+        font-size: 22px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(47, 190, 190);
+    }
+    .header{
+        display: flex;
+        align-items: center;
+        gap: 600px;
+
+    }
+    .NamePage h1{
+        text-align: end;
+        font-size: 50px;
+    }
+    .deweb img{
+        width: 300px;
+    }
+
+       </style>
+    
+    <style>
+        .container {
+            width: 1000px;
+            margin: auto;
+        }
+        .accordion {
+            background-color: #f1f1f1;
+            color: black;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .active, .accordion:hover {
+            background-color: #d3d3d3;
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+            border-left: 3px solid #d3d3d3;
+        }
+        .user {
+            display: flex;
+            gap: 10px;
+        }
+        .user img{
+          border-radius: 50%;
+        }
+    
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .comment {
+            background: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .reply {
+            background: #e9ecef;
+            margin-left: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+            <h1>VOTRE DESTINATION <br>C'EST CHEZ NOUS</h1>
+
+        </div>
+    <div class="NamePage">
+      
+    </div>
+    </div>
+    <!-- Navbar -->
+    <div class="navbar">
+         <div class="user">
+            <img src="{{ url_for('static', filename='images/contact.png') }}" alt="Logo" style="width:40px; height:auto;">
+            <p>Vous</p>
+       </div>
+        <div class="links">
+            <a href="{{ url_for('dashboard') }}">Accueil</a>
+            <a href="{{ url_for('NouvelleBourses') }}">Nouvelles bourses</a>
+            <a href="{{ url_for('parametre') }}">Paramètres</a>
+            <a href="{{ url_for('logout') }}">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1>TROUVEZ DU TRAVAIL</h1>
+         <div class="jobCanada">
+            <h3>Canada</h3>
+            <ul>
+                <li><a href="https://www.guichetemplois.gc.ca/trouverunemploi">guichetemplois</a></li>
+                <li><a href="https://www.jobillico.com/fr">Jobillico</a></li>
+                <li><a href="https://www.jobboom.com/fr">Jobboom</a></li>
+                
+            </ul>
+          </div>
+
+          
+          <div class="deweb">
+          <img src="{{ url_for('static', filename='images/codeWeb.png') }}" alt="codeWeb">
+          <p>Formation en Developpement Web <br> +7 9879040719</p>
+      </div> 
+     </div>
+
+     <style>
+             body {
+                 font-family: Arial, sans-serif;
+                 background-color: #f8f8f8;
+                 margin: 0;
+                 padding: 0;
+             }
+             .container {
+                 width: 80%;
+                 margin: auto;
+                 padding: 20px;
+             }
+             .section {
+                 display: flex;
+                 justify-content: space-between;
+                 margin-bottom: 20px;
+             }
+             .box {
+                 width: 48%;
+                 padding: 20px;
+                 border-radius: 10px;
+             }
+             .subscribe {
+                 background-color: #b5b04b;
+             }
+             .social {
+                 background-color: #f4d7c5;
+                 text-align: center;
+             }
+             h2 {
+                 color: #003366;
+             }
+             input[type="email"] {
+                 width: 100%;
+                 padding: 10px;
+                 margin: 10px 0;
+                 border: none;
+                 border-radius: 5px;
+             }
+             .btn {
+                 display: inline-block;
+                 padding: 10px 15px;
+                 background-color: #003366;
+                 color: white;
+                 text-decoration: none;
+                 border-radius: 5px;
+                 border: none;
+                 cursor: pointer;
+             }
+             .footer {
+                 background-color: #014b53;
+                 color: white;
+                 padding: 20px;
+                 margin-top: 20px;
+                 border-radius: 10px;
+             }
+             .footer a {
+                 color: white;
+                 text-decoration: none;
+             }
+             .footer .links {
+                 display: flex;
+                 justify-content: space-between;
+             }
+             .open-calls {
+                 background-color: #005a5e;
+                 padding: 10px;
+                 border-radius: 10px;
+                 margin-top: 10px;
+             }
+             .btn-green {
+                 background-color: #00b550;
+             }
+             .social-icons {
+                 display: flex;
+                 justify-content: center;
+                 gap: 15px;
+                 font-size: 24px;
+                 margin-top: 10px;
+             }
+             .links a:hover {
+              color: #d5d3a6;
+             }
+           
+         </style>
+   
+     
+     <div class="container">
+         <div class="section">
+             <div class="box subscribe">
+                 <h2>Stay updated</h2>
+                 <p>Connectez vous et visionnez nos videos sur youtube. </p>
+               
+                 <a href="https://www.youtube.com/@MRUSSE225/videos"><button class="btn">Subscribe</button></a>
+             </div>
+             <div class="box social">
+                 <h2>Let's go social!</h2>
+                 <p>Follow us on Facebook, X, LinkedIn, YouTube, and Instagram!</p>
+                 <div class="social-icons">
+                     <span>📘</span> <!-- Facebook -->
+                     <span>𝕏</span> <!-- X (Twitter) -->
+                     <span>🔗</span> <!-- LinkedIn -->
+                     <a href="https://www.youtube.com/@MRUSSE225/videos"><span>▶️</span></a> <!-- YouTube -->
+                     <span>📷</span> <!-- Instagram -->
+                 </div>
+             </div>
+         </div>
+     
+         <div class="footer">
+             <h2>MRUSSE225 , nous assistons pour des etudes dans plusieurs pays .</h2>
+             <p>Plusieurs pays proposent des admissions via des examens de dossiers ou des tests d'entres.De plus nous postulons parallelement aux bourses integrees.</p>
+             <div class="links">
+                 <div>
+                     <p>Trouvez du travail en ligne en restant dans votre pays </p> | <a href="https://www.free-work.com/">Freelance Work</a>
+                 </div>
+                 <div>
+                     <a href="#">News</a> | <a href="#">Resources</a> | <a href="#">Jobs</a> | <a href="#">Contact</a>
+                 </div>
+             </div>
+             <div class="open-calls">
+                 <h3>Open calls</h3>
+                 <p>Enregistrez vous et profitez du monde du travail.</p>
+                <a href="https://www.free-work.com"><button class="btn btn-green">More info</button></a> 
+             </div>
+         </div><br><br>
+         <div class="messageForm">
+            <h2>Laissez votre message ici</h2>
+
+            <form id="commentForm">
+                <input type="text" id="name" placeholder="Votre nom" required><br><br>
+                <textarea id="message" placeholder="Votre message" required></textarea><br>
+                <button type="submit">Envoyer</button>
+            </form>
+            
+            <h2>Commentaires</h2>
+            <div id="comments"></div>
+            
+            <script>
+            document.getElementById('commentForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                let name = document.getElementById('name').value;
+                let message = document.getElementById('message').value;
+            
+                fetch('/add_comment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Commentaire ajouté !");
+                    location.reload();
+                });
+            });
+            
+            function loadComments() {
+                fetch('/get_comments')
+                .then(response => response.json())
+                .then(comments => {
+                    let commentSection = document.getElementById('comments');
+                    commentSection.innerHTML = '';
+            
+                    comments.forEach(comment => {
+                        let commentDiv = document.createElement('div');
+                        commentDiv.classList.add('comment');
+                        commentDiv.innerHTML = `<strong>${comment.name}</strong>: ${comment.message} <br>
+                        <button onclick="reply('${comment.id}')">Répondre</button>
+                        <div class="reply-section" id="reply-${comment.id}"></div>`;
+            
+                        if (comment.replies.length > 0) {
+                            comment.replies.forEach(reply => {
+                                let replyDiv = document.createElement('div');
+                                replyDiv.classList.add('reply');
+                                replyDiv.innerHTML = `<strong>${reply.name}</strong>: ${reply.message}`;
+                                commentDiv.querySelector(`#reply-${comment.id}`).appendChild(replyDiv);
+                            });
+                        }
+            
+                        commentSection.appendChild(commentDiv);
+                    });
+                });
+            }
+            
+            function reply(commentId) {
+                let replyBox = document.createElement('div');
+                replyBox.innerHTML = `
+                    <input type="text" id="replyName-${commentId}" placeholder="Votre nom">
+                    <textarea id="replyMessage-${commentId}" placeholder="Votre réponse"></textarea>
+                    <button onclick="sendReply('${commentId}')">Répondre</button>
+                `;
+                document.getElementById(`reply-${commentId}`).appendChild(replyBox);
+            }
+            
+            function sendReply(commentId) {
+                let name = document.getElementById(`replyName-${commentId}`).value;
+                let message = document.getElementById(`replyMessage-${commentId}`).value;
+            
+                fetch('/add_reply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comment_id: commentId, name: name, message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Réponse ajoutée !");
+                    location.reload();
+                });
+            }
+            
+            loadComments();
+            </script>
+            <script>
+                document.getElementById("commentForm").addEventListener("submit", function(event) {
+                    event.preventDefault();  // Empêche le rechargement de la page
+                
+                    let name = document.getElementById("name").value;
+                    let message = document.getElementById("message").value;
+                
+                    fetch("/add_comment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name: name, message: message })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            alert("Commentaire ajouté !");
+                            document.getElementById("commentForm").reset();
+                            loadComments(); // Recharge les commentaires immédiatement
+                        } else {
+                            alert("Erreur lors de l'ajout du commentaire.");
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+                });
+                
+                function loadComments() {
+                    fetch("/get_comments")
+                    .then(response => response.json())
+                    .then(comments => {
+                        let list = document.getElementById("commentsList");
+                        list.innerHTML = ""; // Vide la liste avant de la remplir
+                
+                        comments.forEach(comment => {
+                            let li = document.createElement("li");
+                            li.innerHTML = `<strong>${comment.name}:</strong> ${comment.message}`;
+                            list.appendChild(li);
+                        });
+                    })
+                    .catch(error => console.error("Erreur de chargement des commentaires:", error));
+                }
+                
+                window.onload = loadComments; // Charge les commentaires au chargement de la page
+                </script>
+         </div>
+
+
+     </div>
+
+     
+   
+     
+</body>
+</html>

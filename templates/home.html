@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home/avantDashboard</title>
+    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+            <h1>VOTRE DESTINATION <br>C'EST CHEZ NOUS</h1>
+
+        </div>
+    </div>
+    <div class="bienvenu">  <h1>Bienvenu (e) sur votre compte <span>Premium</span></h1></div>
+  <div class="registerLogin"> 
+    <a href="/register" target="_blank"><button target="_blank">Register</button></a>
+    <a href="/login" target="_blank"><button target="_blank">Login</button></a>
+ </div>
+ 
+   
+</body>
+<style>
+    .registerLogin a{
+        font-size: 15px;
+    }
+     button:hover{
+        background-color: orange;
+        color: white;
+     }
+    button{
+        width: 280px;
+        height: 80px;
+        cursor: pointer;
+        background-color: rgb(140, 181, 181);
+        margin-top: 120px;
+        border-radius: 10px;
+    }
+    .registerLogin span{
+        color: rgb(136, 96, 21);
+    }
+    .registerLogin{
+        border: solid 2px;
+        border-color: rgb(150, 119, 66);
+        margin-left: 380px;
+        width: 700px;
+        height: 300px;
+        background-color: rgb(241, 241, 241);
+        text-align: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+     .bienvenu span{
+        color: orange;
+     }
+    .bienvenu{
+        text-align: center;
+        align-items: center;
+    }
+    .logo{
+        display: flex;
+        background-color: rgba(250, 246, 246, 0.873);
+        align-items: center;
+    }
+    .logo h1{
+        font-size: 22px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(47, 190, 190);
+    }
+</style>
+</html>

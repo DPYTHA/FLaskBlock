@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #000; /* Black background */
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        /* Dashboard layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sidebar h1{
+            font-size: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000;
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        
+        .logo{
+        display: flex;
+        background-color: rgba(250, 246, 246, 0.873);
+        align-items: center;
+    }
+    .logo h1{
+        font-size: 22px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(47, 190, 190);
+    }
+    .header{
+        display: flex;
+        align-items: center;
+        gap: 600px;
+
+    }
+    .NamePage h1{
+        text-align: end;
+        font-size: 50px;
+    }
+    .deweb img{
+        width: 300px;
+    }
+
+       </style>
+    
+    <style>
+        .container {
+            width: 1000px;
+            margin: auto;
+        }
+        .accordion {
+            background-color: #f1f1f1;
+            color: black;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .active, .accordion:hover {
+            background-color: #d3d3d3;
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+            border-left: 3px solid #d3d3d3;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+            <h1>VOTRE DESTINATION <br>C'EST CHEZ NOUS</h1>
+
+        </div>
+    <div class="NamePage">
+        <h1>DASHBOARD</h1>
+    </div>
+    </div>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="user-info">
+            <img src="https://via.placeholder.com/30" alt="User Avatar">
+            <span>{{ user.first_name }}</span>
+        </div>
+        <div class="links">
+            <a href="{{ url_for('dashboard') }}">Accueil</a>
+            <a href="{{ url_for('NouvelleBourses') }}">Nouvelles bourses</a>
+            <a href="{{ url_for('parametre') }}">Paramètres</a>
+            <a href="{{ url_for('logout') }}">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1>TROUVEZ DU TRAVAIL</h1>
+         <div class="jobCanada">
+            <h3>Canada</h3>
+            <ul>
+                <li><a href="https://www.guichetemplois.gc.ca/trouverunemploi">guichetemplois</a></li>
+                <li><a href="https://www.jobillico.com/fr">Jobillico</a></li>
+                <li><a href="https://www.jobboom.com/fr">Jobboom</a></li>
+                
+            </ul>
+          </div>
+
+          
+          <div class="deweb">
+          <img src="{{ url_for('static', filename='images/codeWeb.png') }}" alt="codeWeb">
+          <p>Formation en Developpement Web <br> +7 9879040719</p>
+      </div> 
+     </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <button class="accordion">Etudiez en ITALIE  <span>+</span></button>
+            <div class="panel">
+
+    <h1>Comment faire ses études en Italie</h1>
+    <p>Pour faire ses études en Italie, voici les étapes principales à suivre :</p>
+
+    <h2>1. Choisir une université et un programme</h2>
+    <ul>
+        <li><strong>Recherche</strong> : Identifiez les universités et les programmes qui correspondent à vos intérêts. L'Italie propose des universités prestigieuses comme l'Université de Bologne, La Sapienza de Rome, ou l'Université de Milan.</li>
+        <li><strong>Langue</strong> : Vérifiez si le programme est en italien ou en anglais. Certaines universités proposent des cours en anglais, surtout au niveau master.</li>
+        <li>Si vous cherchez une universite ou centre pour apprendre la langue Italienne ,prenez celle ci <strong><a href="https://cluss.unistrasi.it/1/121/182/Corsi_di_Lingua_italiana_a_Distanza_(CLID).htm">Centre UES</a></strong></li>
+    </ul>
+
+    <h2>2. Vérifier les conditions d'admission</h2>
+    <ul>
+        <li><strong>Diplôme</strong> : Pour un bachelor, vous aurez besoin d'un diplôme de fin d'études secondaires. Pour un master, un diplôme de licence est requis.</li>
+        <li><strong>Test d'entrée</strong> : Certains programmes, notamment en médecine, architecture ou ingénierie, peuvent exiger un test d'entrée.</li>
+        <li><strong>Reconnaissance des diplômes</strong> : Assurez-vous que votre diplôme est reconnu en Italie. Vous devrez peut-être faire une demande de <strong>Dichiarazione di Valore</strong> (Déclaration de Valeur) auprès de l'ambassade ou du consulat italien.</li>
+    </ul>
+
+    <h2>3. Préparer les documents nécessaires</h2>
+    <ul>
+        <li><strong>CV et lettre de motivation</strong> : Rédigez un CV et une lettre de motivation adaptés au programme choisi.</li>
+        <li><strong>Relevés de notes</strong> : Fournissez les relevés de notes de vos études précédentes.</li>
+        <li><strong>Lettres de recommandation</strong> : Certaines universités peuvent demander des lettres de recommandation.</li>
+        <li><strong>Certificat de langue</strong> : Si le programme est en italien, vous devrez peut-être passer un test de langue comme le <strong>CELI</strong> ou <strong>CILS</strong>. Pour l'anglais, un test comme l'IELTS ou le TOEFL peut être requis.</li>
+    </ul>
+
+    <h2>4. Postuler</h2>
+    <ul>
+        <li><strong>Dates limites</strong> : Respectez les dates limites de candidature, qui varient selon les universités et les programmes.</li>
+        <li><strong>Portail d'inscription</strong> : Pour de nombreuses universités, les candidatures se font via le portail <strong> <a href="https://www.universitaly.it/">Universitaly</a></strong>.</li>
+        <li><strong>Frais de candidature</strong> : Certaines universités peuvent demander des frais de candidature.</li>
+    </ul>
+
+    <h2>5. Obtenir un visa étudiant</h2>
+    <ul>
+        <li><strong>Visa</strong> : Si vous êtes un étudiant non-européen, vous devrez demander un visa étudiant (type D) auprès de l'ambassade ou du consulat italien.</li>
+        <li><strong>Documents requis</strong> : Passeport, lettre d'admission, preuve de ressources financières, assurance maladie, et parfois un justificatif de logement.</li>
+    </ul>
+
+    <h2>6. S'inscrire à l'université</h2>
+    <ul>
+        <li><strong>Inscription finale</strong> : Une fois admis, vous devrez finaliser votre inscription en fournissant les documents originaux et en payant les frais de scolarité.</li>
+        <li><strong>Frais de scolarité</strong> : Les frais varient selon l'université et le programme, mais ils sont généralement compris entre 900 € et 4 000 € par an pour les universités publiques.</li>
+    </ul>
+
+    <h2>7. Trouver un logement</h2>
+    <ul>
+        <li><strong>Résidences universitaires</strong> : Certaines universités proposent des logements étudiants.</li>
+        <li><strong>Logement privé</strong> : Vous pouvez également chercher un appartement ou une colocation en ligne ou sur place.</li>
+    </ul>
+
+    <h2>8. S'adapter à la vie en Italie</h2>
+    <ul>
+        <li><strong>Permis de séjour</strong> : Après votre arrivée, vous devrez demander un permis de séjour (permesso di soggiorno) auprès de la poste ou de la préfecture locale.</li>
+        <li><strong>Assurance maladie</strong> : Souscrivez une assurance maladie si vous n'êtes pas couvert par un accord bilatéral.</li>
+        <li><strong>Langue</strong> : Si vous ne parlez pas italien, envisagez de suivre des cours pour faciliter votre intégration.</li>
+    </ul>
+
+    <h2>9. Bourses d'études</h2>
+    <ul>
+        <li><strong>Bourses</strong> : Renseignez-vous sur les bourses disponibles, comme celles offertes par le gouvernement italien (MAECI) ou par les régions italiennes.</li>
+    </ul>
+
+    <h2>10. Préparer votre départ</h2>
+    <ul>
+        <li><strong>Transport</strong> : Organisez votre voyage et votre arrivée en Italie.</li>
+        <li><strong>Budget</strong> : Prévoyez un budget pour les frais de vie, qui varient selon les villes (Rome et Milan sont plus chères que les villes plus petites).</li>
+    </ul>
+
+    <p>En suivant ces étapes, vous devriez être bien préparé pour commencer vos études en Italie. Bonne chance !</p>
+
+    </div>
+    
+            <button class="accordion">Étudier en Côte d'Ivoire <span>+</span></button>
+            <div class="panel">
+    <h1>Comment faire ses études en Côte d'Ivoire pour un étranger</h1>
+    <p>Pour faire ses études en Côte d'Ivoire en tant qu'étranger, voici les étapes principales à suivre :</p>
+
+    <h2>1. Choisir une université et un programme</h2>
+    <ul>
+        <li><strong>Recherche</strong> : Identifiez les universités et les programmes qui correspondent à vos intérêts. Les universités ivoiriennes les plus connues sont <a href="https://w.univ-fhb.edu.ci/">l'Université Félix Houphouët-Boigny (Abidjan)</a>, <a href="https://www.univ-na.ci/">l'Université Nangui Abrogoua (Abidjan),</a> et l'Université Alassane Ouattara (Bouaké).</li>
+        <li><strong>Langue</strong> : La plupart des programmes sont en français. Assurez-vous d'avoir un niveau suffisant en français pour suivre les cours.</li>
+    </ul>
+
+    <h2>2. Vérifier les conditions d'admission</h2>
+    <ul>
+        <li><strong>Diplôme</strong> : Pour un bachelor, vous aurez besoin d'un diplôme de fin d'études secondaires. Pour un master, un diplôme de licence est requis.</li>
+        <li><strong>Test d'entrée</strong> : Certains programmes peuvent exiger un test d'entrée ou un examen de sélection.</li>
+        <li><strong>Reconnaissance des diplômes</strong> : Assurez-vous que votre diplôme est reconnu en Côte d'Ivoire. Vous devrez peut-être faire une demande d'équivalence auprès du ministère de l'Éducation nationale.</li>
+    </ul>
+
+    <h2>3. Préparer les documents nécessaires</h2>
+    <ul>
+        <li><strong>CV et lettre de motivation</strong> : Rédigez un CV et une lettre de motivation adaptés au programme choisi.</li>
+        <li><strong>Relevés de notes</strong> : Fournissez les relevés de notes de vos études précédentes.</li>
+        <li><strong>Lettres de recommandation</strong> : Certaines universités peuvent demander des lettres de recommandation.</li>
+        <li><strong>Certificat de langue</strong> : Si le programme est en français, vous devrez peut-être fournir une preuve de votre niveau de français (DELF, DALF, ou autre).</li>
+    </ul>
+
+    <h2>4. Postuler</h2>
+    <ul>
+        <li><strong>Dates limites</strong> : Respectez les dates limites de candidature, qui varient selon les universités et les programmes.</li>
+        <li><strong>Portail d'inscription</strong> : Renseignez-vous sur le processus de candidature, qui peut se faire en ligne ou via des dossiers papier.</li>
+        <li><strong>Frais de candidature</strong> : Certaines universités peuvent demander des frais de candidature.</li>
+    </ul>
+
+    <h2>5. Obtenir un visa étudiant</h2>
+    <ul>
+        <li><strong>Visa</strong> : Si vous êtes un étudiant non-ivoirien, vous devrez demander un visa étudiant auprès de l'ambassade ou du consulat de Côte d'Ivoire dans votre pays.</li>
+        <li><strong>Documents requis</strong> : Passeport, lettre d'admission, preuve de ressources financières, assurance maladie, et parfois un justificatif de logement.</li>
+    </ul>
+
+    <h2>6. S'inscrire à l'université</h2>
+    <ul>
+        <li><strong>Inscription finale</strong> : Une fois admis, vous devrez finaliser votre inscription en fournissant les documents originaux et en payant les frais de scolarité.</li>
+        <li><strong>Frais de scolarité</strong> : Les frais varient selon l'université et le programme, mais ils sont généralement abordables pour les universités publiques.</li>
+    </ul>
+
+    <h2>7. Trouver un logement</h2>
+    <ul>
+        <li><strong>Résidences universitaires</strong> : Certaines universités proposent des logements étudiants, mais les places peuvent être limitées.</li>
+        <li><strong>Logement privé</strong> : Vous pouvez également chercher un appartement ou une colocation en ligne ou sur place.</li>
+    </ul>
+
+    <h2>8. S'adapter à la vie en Côte d'Ivoire</h2>
+    <ul>
+        <li><strong>Permis de séjour</strong> : Après votre arrivée, vous devrez demander un permis de séjour auprès des autorités locales.</li>
+        <li><strong>Assurance maladie</strong> : Souscrivez une assurance maladie si vous n'êtes pas couvert par un accord bilatéral.</li>
+        <li><strong>Langue</strong> : Si vous ne parlez pas couramment français, envisagez de suivre des cours pour faciliter votre intégration.</li>
+    </ul>
+
+    <h2>9. Bourses d'études</h2>
+    <ul>
+        <li><strong>Bourses</strong> : Renseignez-vous sur les bourses disponibles, comme celles offertes par le gouvernement ivoirien ou par des organisations internationales.</li>
+    </ul>
+
+    <h2>10. Préparer votre départ</h2>
+    <ul>
+        <li><strong>Transport</strong> : Organisez votre voyage et votre arrivée en Côte d'Ivoire.</li>
+        <li><strong>Budget</strong> : Prévoyez un budget pour les frais de vie, qui varient selon les villes (Abidjan est plus chère que les villes de l'intérieur).</li>
+    </ul>
+
+    <p>En suivant ces étapes, vous devriez être bien préparé pour commencer vos études en Côte d'Ivoire. Bonne chance !</p>
+
+            </div>
+    
+            <button class="accordion">Budget Complet pour des etudes en Russie <span>+</span></button>
+            <div class="panel">
+                
+    <h1>Budget Complet pour des Études en Russie</h1>
+    <p>Étudier en Russie est une option abordable par rapport à d'autres destinations. Voici une estimation des coûts à prévoir :</p>
+
+    <h2>1. Frais de scolarité</h2>
+    <ul>
+        <li><strong>Programmes de licence</strong> : Entre 2 000 € et 5 000 € par an.</li>
+        <li><strong>Programmes de master</strong> : Entre 2 500 € et 6 000 € par an.</li>
+        <li><strong>Programmes de doctorat</strong> : Entre 3 000 € et 7 000 € par an.</li>
+        <li><strong>Écoles de médecine ou d'ingénierie</strong> : Les frais peuvent atteindre 8 000 € à 10 000 € par an.</li>
+    </ul>
+
+    <h2>2. Frais de logement</h2>
+    <ul>
+        <li><strong>Résidences universitaires</strong> : Entre 20 € et 150 € par mois (selon la ville et le confort).</li>
+        <li><strong>Location d'un appartement</strong> :
+            <ul>
+                <li>En province : 150 € à 300 € par mois.</li>
+                <li>À Moscou ou Saint-Pétersbourg : 300 € à 600 € par mois.</li>
+            </ul>
+        </li>
+        <li><strong>Colocation</strong> : Une option économique, entre 100 € et 250 € par mois.</li>
+    </ul>
+
+    <h2>3. Frais de vie mensuels</h2>
+    <ul>
+        <li><strong>Nourriture</strong> : Entre 100 € et 200 € par mois (en cuisinant soi-même).</li>
+        <li><strong>Transport</strong> :
+            <ul>
+                <li>Carte de transport mensuelle : 10 € à 30 €.</li>
+                <li>Taxi ou VTC : 5 € à 10 € par trajet en ville.</li>
+            </ul>
+        </li>
+        <li><strong>Téléphonie et Internet</strong> : 10 € à 20 € par mois.</li>
+        <li><strong>Loisirs et sorties</strong> : 50 € à 100 € par mois.</li>
+    </ul>
+
+    <h2>4. Assurance maladie</h2>
+    <ul>
+        <li><strong>Assurance obligatoire</strong> : Environ 100 € à 200 € par an.</li>
+        <li><strong>Assurance complémentaire</strong> : Optionnelle, entre 200 € et 500 € par an.</li>
+    </ul>
+
+    <h2>5. Frais de visa et de séjour</h2>
+    <ul>
+        <li><strong>Visa étudiant</strong> : Environ 60 € à 100 € (frais de dossier inclus).</li>
+        <li><strong>Enregistrement du visa</strong> : Gratuit ou frais symboliques (à faire dans les 7 jours après l'arrivée).</li>
+        <li><strong>Renouvellement de visa</strong> : Les mêmes frais s'appliquent chaque année.</li>
+    </ul>
+
+    <h2>6. Frais de voyage</h2>
+    <ul>
+        <li><strong>Billet d'avion</strong> : Entre 300 € et 800 € (selon la saison et la provenance).</li>
+        <li><strong>Transport local</strong> : Environ 10 € à 30 € pour un trajet en train ou en bus entre villes.</li>
+    </ul>
+
+    <h2>7. Autres dépenses</h2>
+    <ul>
+        <li><strong>Livres et fournitures</strong> : 50 € à 150 € par an.</li>
+        <li><strong>Vêtements d'hiver</strong> : Comptez 100 € à 300 € pour des vêtements adaptés au climat russe.</li>
+        <li><strong>Dépenses imprévues</strong> : Prévoir un budget de 200 € à 500 € par an.</li>
+    </ul>
+
+    <h2>8. Bourses et aides financières</h2>
+    <ul>
+        <li><strong>Bourses gouvernementales russes</strong> : Le programme de bourses du gouvernement russe couvre les frais de scolarité, le logement et une allocation mensuelle (environ 20 € à 50 €).</li>
+        <li><strong>Bourses universitaires</strong> : Certaines universités offrent des réductions ou des bourses aux étudiants internationaux.</li>
+        <li><strong>Bourses internationales</strong> : Renseignez-vous sur les programmes comme Erasmus+ ou les bourses de votre pays d'origine.</li>
+    </ul>
+
+    <h2>9. Budget annuel estimé</h2>
+    <ul>
+        <li><strong>Étudiant en province</strong> : 4 000 € à 6 000 € par an (frais de scolarité inclus).</li>
+        <li><strong>Étudiant à Moscou ou Saint-Pétersbourg</strong> : 6 000 € à 10 000 € par an (frais de scolarité inclus).</li>
+    </ul>
+
+    <h2>10. Conseils pour économiser</h2>
+    <ul>
+        <li>Optez pour les résidences universitaires ou la colocation.</li>
+        <li>Privilégiez les transports en commun.</li>
+        <li>Cuisinez à la maison plutôt que de manger au restaurant.</li>
+        <li>Profitez des réductions étudiantes (musées, transports, etc.).</li>
+    </ul>
+
+    <p>Avec une bonne planification, étudier en Russie peut être très abordable. N'oubliez pas de prévoir un peu plus pour les imprévus et de postuler aux bourses disponibles. Bonne chance !</p>
+<br><br>
+<iframe
+width="560"
+height="315"
+src="https://www.youtube.com/watch?v=do506nehFx4"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+<p>Voici une vidéo YouTube intégrée pour plus d'Informations.</p>
+            </div>
+
+            <button class="accordion">Faire des cours d'anglais dans le monde<span>+</span></button>
+            <div class="panel">
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        span {
+            background-color: #040e19;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #030e1a;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .country-section {
+            margin-bottom: 30px;
+        }
+        .country-section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #091119;
+            color: white;
+        }
+    </style>
+
+    <span>
+        <h1>Cours de Langue Préparatoire avec OHC</h1>
+        <p>Apprenez l'anglais en Angleterre, en Australie ou en Irlande avec l'agence OHC.</p>
+    </span>
+
+    <div class="container">
+        <section class="country-section">
+            <h2>Angleterre</h2>
+            <p>OHC propose des cours de langue préparatoire dans plusieurs villes anglaises, dont Londres, Oxford et Brighton. Ces cours sont conçus pour vous aider à améliorer votre anglais tout en découvrant la culture britannique.</p>
+            <ul>
+                <li><strong>Programmes disponibles</strong> : Anglais général, préparation aux examens (IELTS, Cambridge), anglais des affaires.</li>
+                <li><strong>Durée des cours</strong> : De 2 semaines à 1 an.</li>
+                <li><strong>Hébergement</strong> : Famille d'accueil, résidences étudiantes, ou appartements partagés.</li>
+                <li><strong>Activités</strong> : Visites culturelles, excursions, et événements sociaux.</li>
+            </ul>
+        </section>
+
+        <section class="country-section">
+            <h2>Australie</h2>
+            <p>En Australie, OHC offre des cours de langue dans des villes dynamiques comme Sydney, Melbourne et Brisbane. Ces programmes sont idéaux pour ceux qui souhaitent apprendre l'anglais dans un cadre détendu et ensoleillé.</p>
+            <ul>
+                <li><strong>Programmes disponibles</strong> : Anglais général, préparation aux examens (IELTS, TOEFL), anglais académique.</li>
+                <li><strong>Durée des cours</strong> : De 4 semaines à 6 mois.</li>
+                <li><strong>Hébergement</strong> : Famille d'accueil, résidences étudiantes, ou colocations.</li>
+                <li><strong>Activités</strong> : Plages, randonnées, et événements culturels.</li>
+            </ul>
+        </section>
+
+        <section class="country-section">
+            <h2>Irlande</h2>
+            <p>En Irlande, OHC propose des cours de langue à Dublin et Cork. Ces programmes vous permettent d'apprendre l'anglais tout en explorant la riche histoire et la culture irlandaise.</p>
+            <ul>
+                <li><strong>Programmes disponibles</strong> : Anglais général, préparation aux examens (Cambridge, IELTS), anglais professionnel.</li>
+                <li><strong>Durée des cours</strong> : De 3 semaines à 1 an.</li>
+                <li><strong>Hébergement</strong> : Famille d'accueil, résidences étudiantes, ou appartements privés.</li>
+                <li><strong>Activités</strong> : Visites de châteaux, pubs traditionnels, et festivals locaux.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Pourquoi choisir OHC ?</h2>
+            <ul>
+                <li><strong>Enseignement de qualité</strong> : Des professeurs qualifiés et expérimentés.</li>
+                <li><strong>Flexibilité</strong> : Cours adaptés à tous les niveaux et à tous les objectifs.</li>
+                <li><strong>Environnement international</strong> : Étudiants du monde entier pour une immersion totale.</li>
+                <li><strong>Support complet</strong> : Aide à l'obtention du visa, hébergement, et orientation.</li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 OHC Language Courses. Tous droits réservés.</p>
+        <p>Contactez-nous : <a href="mailto:info@ohc.com" style="color: white;">info@ohc.com</a></p>
+    </div>
+
+            </div>
+
+            <button class="accordion">Lettre de Motivation - Admission à l'Université <span>+</span></button>
+            <div class="panel">
+               
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 22px;
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .contaiiner {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+
+    <div class="contaiiner">
+        <h1>Étapes pour rédiger une lettre de motivation</h1>
+
+        <h2>1. Introduction</h2>
+        <ul>
+            <li>Présentez-vous brièvement (nom, parcours académique, objectif).</li>
+            <li>Mentionnez le programme ou la filière que vous souhaitez intégrer.</li>
+            <li>Expliquez pourquoi vous écrivez cette lettre (demande d'admission).</li>
+        </ul>
+
+        <h2>2. Corps du texte</h2>
+        <ul>
+            <li><strong>Parcours académique</strong> : Mettez en avant vos études antérieures, vos résultats et les compétences acquises.</li>
+            <li><strong>Motivations</strong> : Expliquez pourquoi vous êtes intéressé par ce programme et cette université en particulier.</li>
+            <li><strong>Projets professionnels</strong> : Décrivez vos ambitions et comment ce programme vous aidera à les réaliser.</li>
+            <li><strong>Atouts personnels</strong> : Mentionnez vos qualités, expériences (stages, bénévolat, etc.) et ce qui vous distingue des autres candidats.</li>
+        </ul>
+
+        <h2>3. Conclusion</h2>
+        <ul>
+            <li>Résumez brièvement votre motivation.</li>
+            <li>Exprimez votre enthousiasme à l'idée d'intégrer l'université.</li>
+            <li>Remerciez le lecteur pour son attention.</li>
+            <li>Terminez par une formule de politesse.</li>
+        </ul>
+
+        <h2>Conseils supplémentaires</h2>
+        <ul>
+            <li>Adaptez votre lettre à chaque université et programme.</li>
+            <li>Soyez concis et évitez les répétitions.</li>
+            <li>Relisez-vous pour corriger les fautes d’orthographe et de grammaire.</li>
+            <li>Utilisez un ton professionnel mais authentique.</li>
+        </ul>
+    </div>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .signature {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+    </style>
+
+
+    <h1>Lettre de Motivation</h1>
+
+    <p><strong>Objet :</strong> Candidature pour le programme de Licence en Sciences Économiques</p>
+
+    <p>Madame, Monsieur,</p>
+
+    <p>
+        Étudiant en terminale au lycée Jean-Monnet, je souhaite intégrer votre prestigieuse université pour poursuivre une Licence en Sciences Économiques à la rentrée prochaine. Passionné par les questions économiques et sociales, je suis convaincu que votre programme, reconnu pour son excellence académique et son approche innovante, me permettra de développer les compétences nécessaires pour réaliser mes ambitions professionnelles.
+    </p>
+
+    <p>
+        Au cours de mes études secondaires, j’ai toujours manifesté un vif intérêt pour les matières scientifiques et sociales, notamment les mathématiques et l’histoire-géographie, qui m’ont permis de développer un esprit analytique et critique. Mes résultats scolaires, notamment une moyenne de 16/20 en mathématiques et 15/20 en sciences économiques et sociales, témoignent de mon engagement et de ma rigueur. Par ailleurs, mon expérience en tant que membre actif du club de débat de mon lycée m’a appris à défendre mes idées avec clarté et à travailler en équipe.
+    </p>
+
+    <p>
+        Je suis particulièrement attiré par votre université pour la qualité de son corps enseignant, la diversité des parcours proposés et les opportunités de stages intégrés au programme. Ces éléments me semblent essentiels pour acquérir une vision globale des enjeux économiques actuels et préparer mon projet professionnel : devenir économiste spécialisé dans les politiques de développement durable.
+    </p>
+
+    <p>
+        Enfin, je suis persuadé que mon dynamisme, ma curiosité intellectuelle et ma détermination feront de moi un atout pour votre établissement. Intégrer votre université représenterait pour moi une opportunité unique de me former dans un environnement stimulant et enrichissant.
+    </p>
+
+    <p>
+        Je vous remercie de l’attention que vous porterez à ma candidature et reste à votre disposition pour toute information complémentaire. Dans l’attente de votre réponse, je vous prie d’agréer, Madame, Monsieur, mes salutations distinguées.
+    </p>
+
+    <p class="signature">Cordialement,<br>[Votre nom]<br>[Vos coordonnées]</p>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Mon Dashboard. Tous droits réservés.
+    </div>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                var span = this.querySelector("span");
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                    span.innerHTML = "+";
+                } else {
+                    panel.style.display = "block";
+                    span.innerHTML = "-";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

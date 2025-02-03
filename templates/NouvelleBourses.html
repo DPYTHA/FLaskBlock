@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        body {
+    user-select: none; /* Empêche la sélection de texte */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+        /* Navbar */
+        .navbar {
+            background-color: #000; /* Black background */
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        /* Dashboard layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sidebar h1{
+            font-size: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000;
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #f0a500; /* Orange on hover */
+        }
+
+        /* Main content */
+        .main-content {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            gap: 20px;
+        }
+
+        .main-content h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .logo{
+        display: flex;
+        background-color: rgba(250, 246, 246, 0.873);
+        align-items: center;
+    }
+    .logo h1{
+        font-size: 22px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(47, 190, 190);
+    }
+    .header{
+        display: flex;
+        align-items: center;
+        gap: 600px;
+
+    }
+    .NamePage h1{
+        text-align: end;
+        font-size: 50px;
+    }
+    .France{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    img{
+        border-radius: 10px;
+    }
+    .Hongrie{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .FranceDescription span{
+        color: rgb(20, 13, 5);
+        
+    }
+    .FranceDescription li{
+        list-style: none;
+    }
+    .CommentPostuler a:hover{
+        color: #a29069;
+    }
+    #description {
+        display: none;
+        background:rgb(188, 188, 157);
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+   
+    </style>
+     <style>
+        .bourse {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .bourse img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .description {
+            flex-grow: 1;
+        }
+        .description li{
+            color: #251c09;
+        }
+        .description li i{
+            color: red;
+        }
+
+        .description-box {
+            display: none;
+            background: rgb(188, 188, 157);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            position: absolute;
+            width: 70%;
+            left: 60%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        .Fulbright img{
+            width: 300px;
+        }
+    </style>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toggleDescription").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let description = this.closest(".description").querySelector(".description-box");
+                    description.style.display = (description.style.display === "block" ? "none" : "block");
+                });
+            });
+
+            // Cacher la description si on clique ailleurs
+            document.addEventListener("click", function (event) {
+                document.querySelectorAll(".description-box").forEach(desc => {
+                    if (!desc.contains(event.target) && !event.target.classList.contains("toggleDescription")) {
+                        desc.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('keyup', function (e) {
+            if (e.key === "PrintScreen") {
+               
+                navigator.clipboard.writeText(""); // Efface le presse-papiers
+            }
+        });
+    
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.key === "p") {
+                e.preventDefault();
+              
+            }
+        });
+    </script>
+    <style>
+        .testToefel img{
+            width: 300px;
+        }
+        .sidebar P{
+            font-size: large;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="https://toeflibt.ets.org/welcome"><img src="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;"></a>
+            <h1>VOTRE DESTINATION <br>C'EST CHEZ NOUS</h1>
+
+        </div>
+    <div class="NamePage">
+        <h1>DASHBOARD</h1>
+    </div>
+    </div>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="user-info">
+            <img src="https://via.placeholder.com/30" alt="User Avatar">
+         
+        </div>
+        <div class="links">
+            <a href="{{ url_for('dashboard') }}">Accueil</a>
+            <a href="{{ url_for('NouvelleBourses') }}">Nouvelles bourses</a>
+            <a href="{{ url_for('parametre') }}">Paramètres</a>
+            <a href="{{ url_for('logout') }}">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1>TROUVEZ DU TRAVAIL</h1>
+         <div class="jobCanada">
+            <h3>Canada</h3>
+            <ul>
+                <li><a href="https://www.guichetemplois.gc.ca/trouverunemploi">guichetemplois</a></li>
+                <li><a href="https://www.jobillico.com/fr">Jobillico</a></li>
+                <li><a href="https://www.jobboom.com/fr">Jobboom</a></li>
+                
+            </ul>
+          </div>
+
+          <div class="jobIrlande">
+            <h3>Irlande</h3>
+            <ul>
+                <li><a href="https://www.irishjobs.ie/" target="_blank">IrishJobs.ie</a> - Offres d'emploi variées en Irlande.</li>
+        <li><a href="https://www.jobs.ie/" target="_blank">Jobs.ie</a> - Annonces d'emploi pour plusieurs secteurs.</li>
+        <li><a href="https://ie.indeed.com/" target="_blank">Indeed Ireland</a> - Moteur de recherche d'emploi international.</li>
+        <li><a href="https://www.linkedin.com/jobs/" target="_blank">LinkedIn Jobs</a> - Offres et réseautage professionnel.</li>
+        <li><a href="https://www.glassdoor.ie/" target="_blank">Glassdoor Ireland</a> - Offres d'emploi avec avis sur les entreprises.</li>
+        <li><a href="https://workwide.fr/les-offres-demplois/irlande/" target="_blank">Workwide.fr</a> - Emplois pour francophones en Irlande.</li>
+        <li><a href="https://www.expat.com/fr/emploi/europe/irlande/" target="_blank">Expat.com</a> - Ressources et offres d'emploi pour expatriés.</li>
+        <li><a href="https://www.hays.ie/" target="_blank">Hays Recruitment</a> - Agence de recrutement en Irlande.</li>
+        <li><a href="https://www.morganmckinley.com/ie" target="_blank">Morgan McKinley</a> - Recrutement pour professionnels en Irlande.</li>
+              
+            </ul>
+          </div>
+
+          <br><br>
+          <div class="testToefel">
+            <h2>Passez votre test en Anglais TOEFEL OU IELTS</h2>
+            <a href="https://toeflibt.ets.org/welcome"><img src="{{ url_for('static', filename='images/Toefel.png') }}" alt="testToefel"></a>
+          </div>
+          <br><br>
+          <p>ESPACE PUBLICITAIRE</p> <br>Contactez nous via whatssap  +7 9879040719 <br><br>
+           <div class="videoBit">
+          <video width="340" height="160" controls>
+            <source src="{{ url_for('static', filename='video/bit 1.mp4') }}" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
+        <a href="https://apply.isc.bit.edu.cn/"><h4>BOURSE DU GOUVERNEMENT CHINOIS - Beijing Institute of Technology</h4></a>
+        </div>
+
+        <div class="Fulbright"> 
+             <a href="https://apply.iie.org/apply/?sr=7e5401e7-e1b3-4fc6-97d4-7a1e7599dd49"><img src="{{ url_for('static', filename='images/FulbrightSen.png') }}" alt="usa"></a> 
+           <a href="https://apply.iie.org/apply/?sr=7e5401e7-e1b3-4fc6-97d4-7a1e7599dd49"><p>Sénégal : appel à candidatures Bourse Master du Programme Fulbright 2025 de l’Ambassade des États-Unis</p></a> 
+ 
+        </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Ici vous trouverez les bourses disponibles recemments.</h2>
+            <p>Selectionnez l'offre de votre choix et postulez </p><br>
+
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/paris.jpg') }}" alt="France">
+                <div class="description">
+                    <h3>BOURSE EN FRANCE PARIS-SACLAY</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span> <b>Master</b></li>
+                        <li><span>Pays:</span> <b>France</b></li>
+                        <li><span>Date Limite:</span> <i>09 Mai 2025</i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                      
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f8f8f8;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #003366;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                       
+                        
+                        <div class="container">
+                            <h1>Bourse Université Paris-Saclay - France</h1>
+                            <p>L'<strong>Université Paris-Saclay</strong> propose des bourses d'excellence pour les étudiants internationaux souhaitant poursuivre un master dans ses établissements partenaires.</p>
+                        
+                            <h2>Avantages de la bourse</h2>
+                            <ul>
+                                <li>Allocation de 10 000 € par an.</li>
+                                <li>Frais de voyage et visa pris en charge (jusqu'à 1 000 €).</li>
+                                <li>Accès à des formations de haut niveau en France.</li>
+                            </ul>
+                        
+                            <h2>Critères d'éligibilité</h2>
+                            <ul>
+                                <li>Être un étudiant international.</li>
+                                <li>Avoir un excellent dossier académique.</li>
+                                <li>Être admis dans un master de l'Université Paris-Saclay.</li>
+                                <li>Ne pas avoir résidé en France plus d'un an durant les trois dernières années.</li>
+                            </ul>
+                        
+                            <h2>Comment postuler ?</h2>
+                            <p>Suivez ces étapes pour soumettre votre candidature :</p>
+                            <ol>
+                                <li>Postuler à un master à l’Université Paris-Saclay.</li>
+                                <li>Si vous êtes sélectionné, vous recevrez un lien pour remplir le <a href="https://www.universite-paris-saclay.fr/en/admission/bourses-internationales-de-master" target="_blank">formulaire de candidature</a>.</li>
+                                <li>Préparer les documents requis :</li>
+                                <ul>
+                                    <li>CV détaillé</li>
+                                    <li>Lettre de motivation</li>
+                                    <li>Relevés de notes et diplômes</li>
+                                    <li>Lettre(s) de recommandation</li>
+                                    <li>Projet professionnel</li>
+                                </ul>
+                                <li>Soumettre le dossier avant la date limite.</li>
+                            </ol>
+                        
+                            <h2>Liens utiles</h2>
+                            <ul>
+                                <li><a href="https://www.universite-paris-saclay.fr/" target="_blank">Site officiel de l'Université Paris-Saclay</a></li>
+                                <li><a href="https://www.universite-paris-saclay.fr/en/admission/bourses-internationales-de-master" target="_blank">Page des bourses internationales</a></li>
+                            </ul>
+                        
+                            <a href="https://www.universite-paris-saclay.fr/en/admission/bourses-internationales-de-master" class="button" target="_blank">Postuler maintenant</a>
+                        </div>
+                        
+                       
+                        
+
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/FAO_hongrie.jpg') }}" alt="Hongrie">
+                <div class="description">
+                    <h3>BOURSE EN HONGRIE FAO 2025 - Food and Agriculture Organization </h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Master</b></li>
+                        <li><span>Pays:</span><b>Hongrie (Universite Debrecen)</b></li>
+                        <li><span>Date Limite:</span><i>28 Fevrier 2025</i></li>
+                     <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="container">
+    <h1>Bourse FAO en Hongrie</h1>
+    <p>Le gouvernement hongrois, en collaboration avec l’<strong>Organisation des Nations Unies pour l’alimentation et l’agriculture (FAO)</strong>, propose des bourses aux étudiants internationaux souhaitant poursuivre un master dans des domaines liés à l'agriculture et au développement durable.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération totale des frais de scolarité.</li>
+        <li>Allocation mensuelle pour les frais de subsistance.</li>
+        <li>Hébergement et couverture médicale fournis.</li>
+        <li>Accès aux laboratoires de recherche et stages pratiques.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être citoyen d’un pays éligible (Afrique, Asie, Amérique latine).</li>
+        <li>Avoir un diplôme de licence dans un domaine lié à l'agriculture ou à l'environnement.</li>
+        <li>Maîtriser l'anglais (preuve requise : TOEFL, IELTS, etc.).</li>
+        <li>Soumettre une candidature complète avant la date limite.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Vérifier l’éligibilité et choisir un programme d’études.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais)</li>
+            <li>Formulaire de candidature rempli</li>
+        </ul>
+        <li>Soumettre le dossier via <a href="https://www.fao.org/europe/hungary/scholarship/en/" target="_blank">le portail FAO</a>.</li>
+        <li>Attendre la sélection et les résultats.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.fao.org/europe/hungary/scholarship/en/" target="_blank">Page officielle de la bourse FAO</a></li>
+        <li><a href="https://www.studyinhungary.hu/" target="_blank">Portail Study in Hungary</a></li>
+    </ul>
+
+    <a href="https://www.fao.org/europe/hungary/scholarship/en/" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/Gov-Turc.jpg') }}" alt="Turquie">
+                <div class="description">
+                    <h3>BOURSE DU GOUVERNEMENT DE TURQUIE-Türkiye Bursları </h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Turquie</b></li>
+                        <li><span>Date Limite:</span><i>20 Fevrier 2025</i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f8f8f8;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #8B0000;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                        
+                        <div class="container">
+                            <h1>Bourse du Gouvernement de Turquie - Türkiye Bursları</h1>
+                            <p>Le programme <strong>Türkiye Bursları</strong> est une initiative du gouvernement turc offrant des bourses aux étudiants internationaux souhaitant poursuivre des études de licence, de master ou de doctorat en Turquie.</p>
+                        
+                            <h2>Avantages de la bourse</h2>
+                            <ul>
+                                <li>Exonération totale des frais de scolarité.</li>
+                                <li>Allocation mensuelle pour les frais de subsistance.</li>
+                                <li>Hébergement gratuit dans les résidences universitaires.</li>
+                                <li>Billet d'avion aller-retour fourni.</li>
+                                <li>Couverture médicale complète.</li>
+                                <li>Programme de cours de langue turque (1 an).</li>
+                            </ul>
+                        
+                            <h2>Critères d'éligibilité</h2>
+                            <ul>
+                                <li>Être citoyen d'un pays autre que la Turquie.</li>
+                                <li>Avoir un excellent dossier académique :</li>
+                                <ul>
+                                    <li>Licence : minimum 70%</li>
+                                    <li>Master et doctorat : minimum 75%</li>
+                                    <li>Médecine et santé : minimum 90%</li>
+                                </ul>
+                                <li>Avoir l'âge requis :</li>
+                                <ul>
+                                    <li>Moins de 21 ans pour la licence.</li>
+                                    <li>Moins de 30 ans pour le master.</li>
+                                    <li>Moins de 35 ans pour le doctorat.</li>
+                                </ul>
+                            </ul>
+                        
+                            <h2>Comment postuler ?</h2>
+                            <p>Suivez ces étapes pour soumettre votre candidature :</p>
+                            <ol>
+                                <li>Créer un compte sur le <a href="https://tbbs.turkiyeburslari.gov.tr/" target="_blank">portail officiel Türkiye Bursları</a>.</li>
+                                <li>Remplir le formulaire de candidature en ligne.</li>
+                                <li>Préparer et télécharger les documents requis :</li>
+                                <ul>
+                                    <li>CV détaillé</li>
+                                    <li>Lettre de motivation</li>
+                                    <li>Relevés de notes et diplômes</li>
+                                    <li>Lettre(s) de recommandation</li>
+                                    <li>Certificat de langue (si disponible)</li>
+                                    <li>Preuve d’activités extrascolaires</li>
+                                    <li>Photographie récente et passeport</li>
+                                </ul>
+                                <li>Soumettre la candidature avant la date limite.</li>
+                            </ol>
+                        
+                            <h2>Liens utiles</h2>
+                            <ul>
+                                <li><a href="https://www.turkiyeburslari.gov.tr/" target="_blank">Site officiel de Türkiye Bursları</a></li>
+                                <li><a href="https://tbbs.turkiyeburslari.gov.tr/" target="_blank">Portail de candidature en ligne</a></li>
+                            </ul>
+                        
+                            <a href="https://tbbs.turkiyeburslari.gov.tr/" class="button" target="_blank">Postuler maintenant</a>
+                        </div>
+                     
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/BitChina.png') }}" alt="Hongrie">
+                <div class="description">
+                    <h3>BOURSE DU GOUVERNEMENT CHINOIS - Beijing Institute of Technology</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Chine</b></li>
+                        <li><span>Date Limite:</span><i>08 Mars 2025</i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="https://apply.isc.bit.edu.cn/" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                        
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="container">
+    <h1>Bourse Université de Technologie de Beijing (BIT) - Chine</h1>
+    <p>L'<strong>Université de Technologie de Beijing (BIT)</strong> propose des bourses aux étudiants internationaux souhaitant poursuivre leurs études en licence, master ou doctorat en Chine.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération totale ou partielle des frais de scolarité.</li>
+        <li>Allocation mensuelle pour les frais de subsistance.</li>
+        <li>Hébergement universitaire gratuit ou subventionné.</li>
+        <li>Assurance médicale complète.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être un étudiant international hors de Chine.</li>
+        <li>Avoir un bon dossier académique.</li>
+        <li>Maîtriser l'anglais ou le chinois (TOEFL, IELTS ou HSK requis selon le programme).</li>
+        <li>Être admis à un programme de BIT.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir un programme d’études à <a href="https://isc.bit.edu.cn/" target="_blank">BIT</a> et obtenir une admission.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais ou chinois)</li>
+            <li>Preuve d’admission</li>
+        </ul>
+        <li>Remplir le <a href="https://isc.bit.edu.cn/admissionsaid/scholarships/" target="_blank">formulaire de candidature</a>.</li>
+        <li>Soumettre le dossier avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.bit.edu.cn/" target="_blank">Site officiel de l'Université de Technologie de Beijing</a></li>
+        <li><a href="https://isc.bit.edu.cn/admissionsaid/scholarships/" target="_blank">Page des bourses BIT</a></li>
+    </ul>
+
+    <a href="https://isc.bit.edu.cn/admissionsaid/scholarships/" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/kent-Usa.png') }}" alt="France">
+                <div class="description">
+                    <h3>BOURSE D'ETUDE AUX USA - Université de Kent</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Etats-Unis</b></li>
+                        <li><span>Date Limite:</span><i>15 Mars 2025</i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                      
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f8f8f8;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #003366;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                      
+                        
+                        <div class="container">
+                            <h1>Bourse Université de Kent - USA</h1>
+                            <p>L'<strong>Université de Kent</strong> aux États-Unis propose des bourses pour les étudiants internationaux souhaitant poursuivre des études de licence, master ou doctorat dans divers domaines académiques.</p>
+                        
+                            <h2>Avantages de la bourse</h2>
+                            <ul>
+                                <li>Exonération partielle ou totale des frais de scolarité.</li>
+                                <li>Allocation mensuelle pour les frais de vie.</li>
+                                <li>Possibilité d'assistanat de recherche ou d'enseignement.</li>
+                                <li>Accès à des opportunités de stages et d’échange académique.</li>
+                            </ul>
+                        
+                            <h2>Critères d'éligibilité</h2>
+                            <ul>
+                                <li>Être un étudiant international hors des États-Unis.</li>
+                                <li>Avoir un excellent dossier académique.</li>
+                                <li>Maîtriser l'anglais (TOEFL, IELTS ou Duolingo requis selon le programme).</li>
+                                <li>Être admis à un programme de l'Université de Kent.</li>
+                            </ul>
+                        
+                            <h2>Comment postuler ?</h2>
+                            <p>Suivez ces étapes pour soumettre votre candidature :</p>
+                            <ol>
+                                <li>Choisir un programme d’études et obtenir une admission.</li>
+                                <li>Préparer les documents requis :</li>
+                                <ul>
+                                    <li>CV détaillé</li>
+                                    <li>Lettre de motivation</li>
+                                    <li>Relevés de notes et diplômes</li>
+                                    <li>Lettre(s) de recommandation</li>
+                                    <li>Certificat de langue (anglais)</li>
+                                    <li>Preuve d’admission</li>
+                                </ul>
+                                <li>Remplir le <a href="https://www.kent.edu/scholarships" target="_blank">formulaire de candidature</a>.</li>
+                                <li>Soumettre le dossier avant la date limite.</li>
+                            </ol>
+                        
+                            <h2>Liens utiles</h2>
+                            <ul>
+                                <li><a href="https://www.kent.edu/" target="_blank">Site officiel de l'Université de Kent</a></li>
+                                <li><a href="https://www.kent.edu/scholarships" target="_blank">Page des bourses et financements</a></li>
+                            </ul>
+                        
+                            <a href="https://www.kent.edu/scholarships" class="button" target="_blank">Postuler maintenant</a>
+                        </div>
+                       
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/TU-Graz.png') }}" alt="Hongrie">
+                <div class="description">
+                    <h3>BOURSE EN AUTRICHE 2025 - Université technique de Graz,</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span>Autriche</li>
+                        <li><span>Date Limite:</span><i> licence - 05 Fevrier ,Master doctorat - 05 Avril 2025</i></li>
+                     <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="container">
+    <h1>Bourse Université de Technologie de Graz (TU Graz) - Autriche</h1>
+    <p>L'<strong>Université de Technologie de Graz (TU Graz)</strong> propose des bourses pour les étudiants internationaux souhaitant poursuivre un master ou un doctorat dans les domaines de l’ingénierie, des sciences et de la technologie.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération totale ou partielle des frais de scolarité.</li>
+        <li>Allocation mensuelle pour les frais de vie.</li>
+        <li>Possibilité de logement universitaire subventionné.</li>
+        <li>Accès à des opportunités de recherche et de stages industriels.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être un étudiant international hors de l’Autriche.</li>
+        <li>Avoir un excellent dossier académique.</li>
+        <li>Maîtriser l'anglais ou l'allemand (TOEFL, IELTS ou certificat d’allemand requis selon le programme).</li>
+        <li>Être admis à un programme de TU Graz.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir un programme d’études et obtenir une admission.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais ou allemand)</li>
+            <li>Preuve d’admission</li>
+        </ul>
+        <li>Remplir le <a href="https://www.tugraz.at/en/studying-and-teaching/international-students-and-staff/scholarships-grants/" target="_blank">formulaire de candidature</a>.</li>
+        <li>Soumettre le dossier avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.tugraz.at/en/home/" target="_blank">Site officiel de l'Université de Technologie de Graz</a></li>
+        <li><a href="https://www.tugraz.at/en/studying-and-teaching/international-students-and-staff/scholarships-grants/" target="_blank">Page des bourses et financements</a></li>
+    </ul>
+
+    <a href="https://www.tugraz.at/en/studying-and-teaching/international-students-and-staff/scholarships-grants/" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/vliruos.png') }}" alt="France">
+                <div class="description">
+                    <h3>BOURSE D'ETUDE VLIRUOS - Belgique 2025</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master </b></li>
+                        <li><span>Pays:</span><b>Belgique</b></li>
+                        <li><span>Date Limite:</span>  <i>28 Fevrier 2025</i></li>
+                     <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="container">
+    <h1>Bourse VLIR-UOS - Belgique</h1>
+    <p>Le programme <strong>VLIR-UOS</strong> offre des bourses aux étudiants et professionnels des pays en développement souhaitant poursuivre un master ou une formation en Belgique dans les universités et hautes écoles partenaires.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération totale des frais de scolarité.</li>
+        <li>Allocation mensuelle pour les frais de subsistance.</li>
+        <li>Billet d’avion aller-retour fourni.</li>
+        <li>Assurance médicale et responsabilité civile.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être citoyen d’un des pays éligibles (Afrique, Asie, Amérique latine).</li>
+        <li>Avoir un diplôme universitaire pertinent pour le programme choisi.</li>
+        <li>Avoir une bonne maîtrise de l'anglais (TOEFL, IELTS requis selon le programme).</li>
+        <li>Être âgé de moins de 35 ans pour un master et de moins de 45 ans pour une formation courte.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir un programme éligible sur <a href="https://www.vliruos.be/en/scholarships" target="_blank">le site de VLIR-UOS</a>.</li>
+        <li>Postuler directement auprès de l’université ou haute école belge partenaire.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais ou français)</li>
+            <li>Formulaire de candidature spécifique au programme</li>
+        </ul>
+        <li>Soumettre le dossier avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.vliruos.be/en" target="_blank">Site officiel de VLIR-UOS</a></li>
+        <li><a href="https://www.vliruos.be/en/scholarships" target="_blank">Page des bourses VLIR-UOS</a></li>
+    </ul>
+
+    <a href="https://www.vliruos.be/en/scholarships" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/JaponAsiePacifique.png') }}" alt="Hongrie">
+                <div class="description">
+                    <h3>ADMISSION ET BOURSE AU JAPON 2025 - Université Ritsumeikan Asie Pacifique</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Japon</b></li>
+                        <li><span>Date Limite:</span> <i>22 Mars 2025</i></li>
+                      <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f8f8f8;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #8B0000;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                      
+                        
+                        <div class="container">
+                            <h1>Bourse Université de Ritsumeikan Asie Pacifique - Japon</h1>
+                            <p>L'<strong>Université de Ritsumeikan Asie Pacifique (APU)</strong> au Japon propose des bourses pour les étudiants internationaux souhaitant poursuivre un master ou un doctorat dans un environnement académique dynamique.</p>
+                        
+                            <h2>Avantages de la bourse</h2>
+                            <ul>
+                                <li>Exonération totale ou partielle des frais de scolarité.</li>
+                                <li>Allocation mensuelle pour les frais de vie.</li>
+                                <li>Possibilité de logement universitaire.</li>
+                                <li>Accès à des programmes d'échange et d'apprentissage linguistique.</li>
+                            </ul>
+                        
+                            <h2>Critères d'éligibilité</h2>
+                            <ul>
+                                <li>Être un étudiant international hors du Japon.</li>
+                                <li>Avoir un excellent dossier académique.</li>
+                                <li>Maîtriser l'anglais ou le japonais (TOEFL, IELTS ou JLPT requis selon le programme).</li>
+                                <li>Être admis à un programme de l'Université APU.</li>
+                            </ul>
+                        
+                            <h2>Comment postuler ?</h2>
+                            <p>Voici les étapes pour soumettre votre candidature :</p>
+                            <ol>
+                                <li>Choisir un programme d’études et obtenir une admission.</li>
+                                <li>Préparer les documents requis :</li>
+                                <ul>
+                                    <li>CV détaillé</li>
+                                    <li>Lettre de motivation</li>
+                                    <li>Relevés de notes et diplômes</li>
+                                    <li>Lettre(s) de recommandation</li>
+                                    <li>Certificat de langue (anglais ou japonais)</li>
+                                    <li>Preuve d’admission</li>
+                                </ul>
+                                <li>Remplir le <a href="https://admissions.apu.ac.jp/" target="_blank">formulaire de candidature</a>.</li>
+                                <li>Soumettre le dossier avant la date limite.</li>
+                            </ol>
+                        
+                            <h2>Liens utiles</h2>
+                            <ul>
+                                <li><a href="https://www.apu.ac.jp/home/" target="_blank">Site officiel de l'Université APU</a></li>
+                                <li><a href="https://admissions.apu.ac.jp/" target="_blank">Page des admissions et bourses</a></li>
+                            </ul>
+                        
+                            <a href="https://admissions.apu.ac.jp/" class="button" target="_blank">Postuler maintenant</a>
+                        </div>
+                        
+                  
+                        
+                    </div>
+                </div>
+            </div>
+             
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/UvPavia.png') }}" alt="Italia">
+                <div class="description">
+                    <h3>ADMISSION ET BOURSE EN ITALIE - Universite de Pavia</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Italie</b></li>
+                        <li><span>Date Limite:</span>en fonction de la filliere</li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="contaiiiner">
+    <h1>Bourse Université de Pavie - Italie</h1>
+    <p>La bourse de l'<strong>Université de Pavie</strong> (UNIPV) en Italie est destinée aux étudiants internationaux souhaitant poursuivre un master ou un doctorat dans cette prestigieuse institution.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération des frais de scolarité.</li>
+        <li>Bourse mensuelle pour les frais de vie.</li>
+        <li>Logement et restauration à prix réduit.</li>
+        <li>Accès à des formations en italien et en anglais.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être titulaire d'un diplôme de licence reconnu pour les masters, ou d'un master pour les doctorats.</li>
+        <li>Avoir un excellent dossier académique.</li>
+        <li>Fournir une preuve de maîtrise de l'anglais ou de l'italien selon le programme choisi.</li>
+        <li>Être admis dans un programme de l’Université de Pavie.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir un programme d’études à l'Université de Pavie et obtenir une admission.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais ou italien)</li>
+            <li>Preuve d’admission</li>
+        </ul>
+        <li>Remplir le <a href="https://web.unipv.it/" target="_blank">formulaire de candidature</a>.</li>
+        <li>Soumettre le dossier avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://web.unipv.it/" target="_blank">Site officiel de l'Université de Pavie</a></li>
+        <li><a href="https://www.edisu.pv.it/" target="_blank">Page des bourses EDISU pour étudiants internationaux</a></li>
+    </ul>
+
+    <a href="https://web.unipv.it/" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/WbiBelgique.png') }}" alt="Italia">
+                 <div class="description">
+                    <h3>BOURSE MASTER IN WBI Belgique</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span>Master Doctorat</li>
+                        <li><span>Pays:</span>Belgique</li>
+                        <li><span>Date Limite:</span><i>15 Mai 2025</i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                       
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .contaiiiner {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="contaiiiner">
+    <h1>Bourse Master IN WBI - Belgique</h1>
+    <p>La bourse <strong>Master IN WBI</strong> est une opportunité offerte par Wallonie-Bruxelles International (WBI) pour soutenir les étudiants internationaux souhaitant poursuivre un master dans une université belge.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération des frais d'inscription.</li>
+        <li>Allocation mensuelle pour les frais de subsistance.</li>
+        <li>Prise en charge des frais de voyage.</li>
+        <li>Assurance santé.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être titulaire d'un diplôme de licence reconnu.</li>
+        <li>Avoir un excellent dossier académique.</li>
+        <li>Être admis dans une université de Wallonie-Bruxelles.</li>
+        <li>Présenter un projet d'études pertinent.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir une université en Belgique et obtenir une admission.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Preuve d'admission dans une université belge</li>
+        </ul>
+        <li>Remplir le <a href="https://www.wbi.be/fr/inwbi" target="_blank">formulaire de candidature</a>.</li>
+        <li>Envoyer le dossier par email avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.studyinbelgium.be/" target="_blank">Portail Study in Belgium</a></li>
+        <li><a href="https://www.wbi.be/fr/inwbi" target="_blank">Page officielle de la bourse Master IN WBI</a></li>
+    </ul>
+
+    <a href="https://www.wbi.be/fr/inwbi" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/Studyinfo.png') }}" alt="France">
+                    <div class="description">
+                    <h3>TROUVER UNE FORMATION PROFESSIONNELLE EN FINLANDE </h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Finlande</b></li>
+                        <li><span>Date Limite:</span><i>En fonction de votre formation</i></li>
+                        <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                        
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f4f4f4;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #003366;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                       
+                        
+                        <div class="container">
+                            <h1>Formation Professionnelle en Finlande</h1>
+                            <p>La Finlande offre d'excellentes opportunités de formation professionnelle pour les étudiants et les travailleurs souhaitant acquérir des compétences pratiques adaptées au marché du travail.</p>
+                        
+                            <h2>Pourquoi choisir la Finlande ?</h2>
+                            <ul>
+                                <li>Un système éducatif reconnu mondialement.</li>
+                                <li>Des formations orientées vers la pratique et l'innovation.</li>
+                                <li>Des possibilités de stages et d'alternance avec des entreprises finlandaises.</li>
+                                <li>Une qualité de vie élevée et un environnement multiculturel.</li>
+                            </ul>
+                        
+                            <h2>Domaines de formation</h2>
+                            <p>Les formations professionnelles en Finlande couvrent divers secteurs, notamment :</p>
+                            <ul>
+                                <li><a href="https://www.metropolia.fi/en" target="_blank">Technologie et ingénierie - Metropolia University of Applied Sciences</a></li>
+                                <li><a href="https://www.haaga-helia.fi/en" target="_blank">Commerce et gestion - Haaga-Helia University of Applied Sciences</a></li>
+                                <li><a href="https://www.turkuamk.fi/en/" target="_blank">Santé et bien-être - Turku University of Applied Sciences</a></li>
+                                <li><a href="https://www.lapinamk.fi/en" target="_blank">Hôtellerie et tourisme - Lapland University of Applied Sciences</a></li>
+                                <li><a href="https://www.jamk.fi/en" target="_blank">Informatique et programmation - JAMK University of Applied Sciences</a></li>
+                            </ul>
+                        
+                            <h2>Comment s'inscrire ?</h2>
+                            <p>Pour postuler à une formation professionnelle en Finlande, vous devez :</p>
+                            <ol>
+                                <li>Choisir une école ou un institut de formation.</li>
+                                <li>Vérifier les critères d'admission.</li>
+                                <li>Remplir un <a href="https://studyinfo.fi/wp2/en/" target="_blank">formulaire de candidature en ligne</a>.</li>
+                                <li>Préparer les documents nécessaires (diplômes, CV, lettre de motivation).</li>
+                                <li>Passer un éventuel test ou entretien.</li>
+                            </ol>
+                        
+                            <a href="https://www.studyinfinland.fi/" class="button" target="_blank">En savoir plus</a>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/Peterburg.png') }}" alt="Russie">
+                <div class="description">
+                    <h3>Bourse d'etude du gouvernement à St-Peterburg</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Federation de Russie </b></li>
+                        <li><span>Date Limite:</span><i>10 fevrier 2025</i></li>
+                    <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+
+                        
+                
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f8f8f8;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .container {
+                                    width: 80%;
+                                    margin: auto;
+                                    background: white;
+                                    padding: 20px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    border-radius: 8px;
+                                    margin-top: 20px;
+                                }
+                                h1, h2 {
+                                    color: #8B0000;
+                                }
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                }
+                                ul {
+                                    list-style-type: none;
+                                    padding: 0;
+                                }
+                                li {
+                                    margin-bottom: 10px;
+                                }
+                                a {
+                                    color: #0073e6;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                }
+                                a:hover {
+                                    text-decoration: underline;
+                                }
+                                .button {
+                                    display: inline-block;
+                                    padding: 10px 15px;
+                                    background-color: #0073e6;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                }
+                                .button:hover {
+                                    background-color: #005bb5;
+                                }
+                            </style>
+                      
+                        
+                        <div class="container">
+                            <h1>Bourse Université de Saint-Pétersbourg - Russie</h1>
+                            <p>L'<strong>Université de Saint-Pétersbourg</strong> propose des bourses aux étudiants internationaux souhaitant poursuivre un master ou un doctorat en Russie.</p>
+                        
+                            <h2>Avantages de la bourse</h2>
+                            <ul>
+                                <li>Exonération totale ou partielle des frais de scolarité.</li>
+                                <li>Allocation mensuelle pour les frais de vie.</li>
+                                <li>Possibilité de logement universitaire.</li>
+                                <li>Accès à des programmes de recherche et d'échange international.</li>
+                            </ul>
+                        
+                            <h2>Critères d'éligibilité</h2>
+                            <ul>
+                                <li>Être un étudiant international non-russe.</li>
+                                <li>Avoir un excellent dossier académique.</li>
+                                <li>Maîtriser l'anglais ou le russe (certificat TOEFL, IELTS ou TORFL requis selon le programme).</li>
+                                <li>Être admis à un programme de l'Université de Saint-Pétersbourg.</li>
+                            </ul>
+                        
+                            <h2>Comment postuler ?</h2>
+                            <p>Suivez ces étapes pour soumettre votre candidature :</p>
+                            <ol>
+                                <li>Choisir un programme d’études et obtenir une admission.</li>
+                                <li>Préparer les documents requis :</li>
+                                <ul>
+                                    <li>CV détaillé</li>
+                                    <li>Lettre de motivation</li>
+                                    <li>Relevés de notes et diplômes</li>
+                                    <li>Lettre(s) de recommandation</li>
+                                    <li>Certificat de langue (anglais ou russe)</li>
+                                    <li>Preuve d’admission</li>
+                                </ul>
+                                <li>Remplir le <a href="https://english.spbu.ru/admission" target="_blank">formulaire de candidature</a>.</li>
+                                <li>Soumettre le dossier avant la date limite.</li>
+                            </ol>
+                        
+                            <h2>Liens utiles</h2>
+                            <ul>
+                                <li><a href="https://english.spbu.ru/" target="_blank">Site officiel de l'Université de Saint-Pétersbourg</a></li>
+                                <li><a href="https://english.spbu.ru/admission" target="_blank">Page des admissions et bourses</a></li>
+                            </ul>
+                        
+                            <a href="https://english.spbu.ru/admission" class="button" target="_blank">Postuler maintenant</a>
+                        </div>
+                        
+               
+                        
+
+
+                    </div>
+                </div>
+            </div>
+             
+            <div class="bourse">
+                <img src="{{ url_for('static', filename='images/luxemb.jpg') }}" alt="luxemb">
+                <div class="description">
+                    <h3>ADMISSION ET BOURSE A L'UNIVERSITE DE LUXEMBOURG 2025-2026</h3>
+                    <ul>
+                        <li><span>Niveau d'étude :</span><b>Licence Master Doctorat</b></li>
+                        <li><span>Pays:</span><b>Luxembourg</b></li>
+                        <li><span>Date Limite:</span><i>Mars 2025 en fonction de la bourse </i></li>
+                       <br>
+                        <li class="CommentPostuler">
+                            <a href="#" class="toggleDescription">Comment postuler →</a>
+                        </li>
+                    </ul>
+                    <div class="description-box">
+                        
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+
+<div class="container">
+    <h1>Bourse Université du Luxembourg</h1>
+    <p>L'<strong>Université du Luxembourg</strong> offre plusieurs opportunités de bourses aux étudiants internationaux souhaitant poursuivre un master ou un doctorat.</p>
+
+    <h2>Avantages de la bourse</h2>
+    <ul>
+        <li>Exonération partielle ou totale des frais de scolarité.</li>
+        <li>Allocation mensuelle pour les frais de subsistance.</li>
+        <li>Accès à des opportunités de recherche et de stages.</li>
+        <li>Encadrement académique de qualité.</li>
+    </ul>
+
+    <h2>Critères d'éligibilité</h2>
+    <ul>
+        <li>Être un étudiant international hors Luxembourg.</li>
+        <li>Avoir un excellent dossier académique.</li>
+        <li>Maîtriser l’anglais ou le français (certificat requis selon le programme).</li>
+        <li>Être admis à un programme de l'Université du Luxembourg.</li>
+    </ul>
+
+    <h2>Comment postuler ?</h2>
+    <p>Suivez ces étapes pour soumettre votre candidature :</p>
+    <ol>
+        <li>Choisir un programme d’études et obtenir une admission.</li>
+        <li>Préparer les documents requis :</li>
+        <ul>
+            <li>CV détaillé</li>
+            <li>Lettre de motivation</li>
+            <li>Relevés de notes et diplômes</li>
+            <li>Lettre(s) de recommandation</li>
+            <li>Certificat de langue (anglais ou français)</li>
+            <li>Preuve d’admission</li>
+        </ul>
+        <li>Remplir le <a href="https://www.uni.lu/students/mobility_scholarships" target="_blank">formulaire de candidature</a>.</li>
+        <li>Soumettre le dossier avant la date limite.</li>
+    </ol>
+
+    <h2>Liens utiles</h2>
+    <ul>
+        <li><a href="https://www.uni.lu/" target="_blank">Site officiel de l'Université du Luxembourg</a></li>
+        <li><a href="https://www.uni.lu/students/mobility_scholarships" target="_blank">Page des bourses et financements</a></li>
+    </ul>
+
+    <a href="https://www.uni.lu/students/mobility_scholarships" class="button" target="_blank">Postuler maintenant</a>
+</div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+           
+            
+        
+        
+           
+        
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Mon Dashboard. Tous droits réservés.
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td button {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styles for Active, Deactivate, and Delete Buttons */
+        button[name="action"][value="activate"] {
+            background-color: #28a745; /* Green */
+            color: white;
+        }
+
+        button[name="action"][value="deactivate"] {
+            background-color: #dc3545; /* Red */
+            color: white;
+        }
+
+        button[name="action"][value="delete"] {
+            background-color: #000000; /* Black */
+            color: white;
+        }
+
+        /* Hover effects */
+        button:hover {
+            opacity: 0.8;
+        }
+
+        button[name="action"][value="activate"]:hover {
+            background-color: #218838;
+        }
+
+        button[name="action"][value="deactivate"]:hover {
+            background-color: #c82333;
+        }
+
+        button[name="action"][value="delete"]:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Panel</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Password</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.password }}</td>  <!-- C'est dangereux de montrer le mot de passe en clair. -->
+            <td>{{ 'Active' if user.is_active else 'Inactive' }}</td>
+            <td>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <button type="submit" name="action" value="activate">Activate</button>
+                    <button type="submit" name="action" value="deactivate">Deactivate</button>
+                    <button type="submit" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="website icon" href=" {{ url_for('static', filename='images/NewLogo.png') }}" alt="Logo" style="width:200px; height:auto;">
+
+    <title>Login</title>
+    <style>
+        /* Style général */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f3f3;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Conteneur du formulaire */
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        form:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.5);
+        }
+
+        /* Champs de formulaire */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="email"], 
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        input[type="email"]:focus, 
+        input[type="password"]:focus {
+            border: 2px solid orange;
+        }
+
+        /* Bouton Login */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button a{
+            color: #f3f3f3;
+        }
+
+        button:hover {
+            background-color: orange;
+        }
+        .registerLogin i{
+            color: red;
+            font-size: 13px;
+        }
+        .registerLogin p{
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>Login</h1>
+       
+        <div class="registerLogin"> 
+          <p><span>Felicitation</span>!! Vous venez de vous enregistrer a votre compte premium.
+          Avant de vous connecter et beneficier de nos offres , veuillez solder votre 
+      abonnement:<br><h3>(5000 FCFA ou 10$/Mois)</h3></p>
+      <p>Contactez via Whatssap : +7 9879040719  <br> Email : pythamoua@gmail.com <br><BR>
+      <i>NB: VOTRE COMPTE SERA ACTIF SEULEMENT APRES RECEPTION DE VOTRE ABONNEMENT</i></p>.</div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Login</button><br><br><button ><a href="{{ url_for('register') }}">Back</a></button>
+    </form>
+    
+</body>
+</html>
