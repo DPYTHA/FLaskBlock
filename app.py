@@ -215,9 +215,10 @@ def add_reply():
     return jsonify({"status": "error", "message": "Commentaire non trouvé"}), 400
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     with app.app_context():
         db.create_all()  # Create the database tables if they don't exist
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)
+
+
+
