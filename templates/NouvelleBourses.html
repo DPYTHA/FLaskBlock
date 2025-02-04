@@ -215,6 +215,26 @@
             transform: translateX(-50%);
             z-index: 1000;
         }
+        @media (max-width: 768px) {
+    .description-box {
+        width: 90%; /* Ajustez la largeur pour les petits écrans */
+        left: 5%; /* Centrez la boîte de description */
+        transform: none; /* Supprimez la transformation pour éviter les décalages */
+        position: relative; /* Changez la position en relative pour un meilleur affichage */
+        margin-top: 10px; /* Ajoutez une marge en haut */
+        margin-bottom: 20px; /* Ajoutez une marge en bas pour éviter les chevauchements */
+    }
+}
+
+@media (max-width: 576px) {
+    .description-box {
+        width: 100%; /* Utilisez toute la largeur disponible */
+        left: 0; /* Alignez à gauche */
+        position: relative; /* Changez la position en relative pour un meilleur affichage */
+        margin-top: 10px; /* Ajoutez une marge en haut */
+        margin-bottom: 20px; /* Ajoutez une marge en bas pour éviter les chevauchements */
+    }
+}
 
         .Fulbright img {
             width: 300px;
